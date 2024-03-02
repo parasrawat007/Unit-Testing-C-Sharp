@@ -72,6 +72,7 @@ namespace SparkyNUnitTest
             Assert.IsFalse(String.IsNullOrEmpty(customer.GreetMessage));
 
         }
+
         [Test]
         public void GreetChecker_EmptyFirstName_ThrowsException()
         {
@@ -91,5 +92,12 @@ namespace SparkyNUnitTest
                Throws.ArgumentException);
         }
 
+        [Test]
+        public void CustomerType_CreateCustomerWithLessThan100Order_ReturnBasicCustomer()
+        { 
+            customer.OrderTotal = 10;
+            var result =customer.GetCustomerDetails();
+            Assert.That(result, Is.TypeOf<BasicCustomer>());
+        }
     }
 }

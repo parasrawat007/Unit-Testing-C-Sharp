@@ -22,9 +22,9 @@ namespace Sparky
         }
         public CustomerType GetCustomerDetails() 
         {
-            if (OrderTotal > 100)
-                return new PlatinumCustomer();
-            return new BasicCustomer();
+            if (OrderTotal < 100)
+                return new BasicCustomer();
+            return new PlatinumCustomer();
         }
     }
     public class CustomerType { }
