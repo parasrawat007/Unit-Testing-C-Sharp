@@ -16,25 +16,24 @@ namespace SparkyNUnitTest
         {
             //Arrange
             var customer = new Customer();
-            
+
             //Act
-            var fullName=customer.CombineNames("Ben", "Spark");
+            customer.CombineNames("Ben", "Spark");
 
             //Assert
-            Assert.AreEqual(fullName, "Hello, Ben Spark");
-            Assert.That(fullName, Is.EqualTo("Hello, Ben Spark"));
+            Assert.AreEqual(customer.GreetMessage, "Hello, Ben Spark");
+            Assert.That(customer.GreetMessage, Is.EqualTo("Hello, Ben Spark"));
 
-            Assert.That(fullName, Does.Contain(","));
-            Assert.That(fullName, Does.Contain("Ben Spark"));
-            Assert.That(fullName, Does.Contain("ben Spark").IgnoreCase);
+            Assert.That(customer.GreetMessage, Does.Contain(","));
+            Assert.That(customer.GreetMessage, Does.Contain("Ben Spark"));
+            Assert.That(customer.GreetMessage, Does.Contain("ben Spark").IgnoreCase);
 
-            Assert.That(fullName, Does.StartWith("Hello,"));
-            Assert.That(fullName, Does.EndWith("Spark"));
+            Assert.That(customer.GreetMessage, Does.StartWith("Hello,"));
+            Assert.That(customer.GreetMessage, Does.EndWith("Spark"));
 
             //Macthiing with regular expression
-            Assert.That(fullName, Does.Match("Hello, [A-Z]{1}[a-z]+ [A-Z]{1}[a-z]+"));
-
+            Assert.That(customer.GreetMessage, Does.Match("Hello, [A-Z]{1}[a-z]+ [A-Z]{1}[a-z]+"));
         }
-
+      
     }
 }
