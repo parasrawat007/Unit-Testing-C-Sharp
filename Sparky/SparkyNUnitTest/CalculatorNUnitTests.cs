@@ -74,10 +74,17 @@ namespace SparkyNUnitTest
             List<int> expectedOddRange = new() { 5, 7, 9 };
             
             //Act
-            var result = calc.GetOddRange(3,10);
+            var result = calc.GetOddRange(5,10);
 
             //Assert
             Assert.That(result, Is.EquivalentTo(expectedOddRange));
+            Assert.AreEqual(expectedOddRange, result);
+            Assert.Contains(7, result);
+            Assert.That(result,Does.Contain(7));
+            Assert.That(result,Is.Not.Empty);
+            Assert.That(result,Has.No.Member(6));
+            Assert.That(result,Is.Ordered);
+            Assert.That(result,Is.Unique);
         }
     }
 
