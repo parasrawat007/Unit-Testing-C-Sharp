@@ -26,7 +26,7 @@ namespace SparkyNUnitTest
         {
             
             //Act
-            customer.CombineNames("Ben", "Spark");
+            customer.GreetAndCombineNames("Ben", "Spark");
 
             //Assert
             Assert.Multiple(() => {
@@ -37,11 +37,11 @@ namespace SparkyNUnitTest
                 Assert.That(customer.GreetMessage, Does.Contain("Ben Spark"));
                 Assert.That(customer.GreetMessage, Does.Contain("ben Spark").IgnoreCase);
 
-                Assert.That(customer.GreetMessage, Does.StartWith("1Hello,"));
-                Assert.That(customer.GreetMessage, Does.EndWith("1Spark"));
+                Assert.That(customer.GreetMessage, Does.StartWith("Hello,"));
+                Assert.That(customer.GreetMessage, Does.EndWith("Spark"));
 
                 //Macthiing with regular expression
-                Assert.That(customer.GreetMessage, Does.Match("1Hello, [A-Z]{1}[a-z]+ [A-Z]{1}[a-z]+"));
+                Assert.That(customer.GreetMessage, Does.Match("Hello, [A-Z]{1}[a-z]+ [A-Z]{1}[a-z]+"));
 
             });
            
@@ -49,7 +49,7 @@ namespace SparkyNUnitTest
         }
         
         [Test]
-        public void GreeTMessage_NotGreeted_ReturnsNull()
+        public void GreetMessage_NotGreeted_ReturnsNull()
         {
             //act
             //Assert
@@ -62,5 +62,26 @@ namespace SparkyNUnitTest
             int result = customer.Discount;
             Assert.That(result, Is.InRange(10, 20));
         }
+
+        [Test]
+        public void GreetMessage_GreetedWithoutLastName_ReturnsNotNull()
+        {
+            customer.GreetAndCombineNames("ben", "");
+
+            Assert.IsNotNull(customer.GreetMessage);
+            Assert.IsFalse(String.IsNullOrEmpty(customer.GreetMessage));
+
+        }
+        [Test]
+        public void GreetChecker_EmptyFirstName_ThrowsException()
+        {
+            var exceptionDetails = Assert.Throws<ArgumentException>(() => {
+                customer.GreetAndCombineNames("", "Spark");
+            });
+            Assert.AreEqual("First Name is Empty.", exceptionDetails.Message);
+            Assert.That(()=>customer.GreetAndCombineNames("", "Spark"), 
+                Throws.ArgumentException.With.Message.EqualTo("First Name is Empty."));
+        }
+
     }
 }

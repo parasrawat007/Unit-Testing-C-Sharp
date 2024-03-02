@@ -10,8 +10,11 @@ namespace Sparky
     {
         public string GreetMessage { get; set; }
         public int Discount = 15;
-        public string CombineNames(string firstName, string lastName)
-        { 
+        public string GreetAndCombineNames(string firstName, string lastName)
+        {
+            if (String.IsNullOrEmpty(firstName))
+                throw new ArgumentException("First Name is Empty.");
+
             GreetMessage = $"Hello, {firstName} {lastName}";
             Discount = 20 ;
             return GreetMessage;
