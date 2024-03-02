@@ -11,11 +11,19 @@ namespace SparkyNUnitTest
     [TestFixture]
     public class CustomerNUnitTests
     {
+        private Customer customer;
+       
+        [SetUp]
+        public void Steup()
+        {
+            //Arrange 
+            customer = new Customer();
+        }
+        
         [Test]
         public void CombineName_InputFirstAndLastName_ReturnFullName()
         {
-            //Arrange
-            var customer = new Customer();
+            
 
             //Act
             customer.CombineNames("Ben", "Spark");
@@ -34,14 +42,11 @@ namespace SparkyNUnitTest
             //Macthiing with regular expression
             Assert.That(customer.GreetMessage, Does.Match("Hello, [A-Z]{1}[a-z]+ [A-Z]{1}[a-z]+"));
         }
+        
         [Test]
         public void GreeTMessage_NotGreeted_ReturnsNull()
         {
-            //Arrange 
-            var customer = new Customer();
-
             //act
-
             //Assert
             Assert.IsNull(customer.GreetMessage);
         }
