@@ -24,7 +24,6 @@ namespace SparkyNUnitTest
         public void CombineName_InputFirstAndLastName_ReturnFullName()
         {
             
-
             //Act
             customer.CombineNames("Ben", "Spark");
 
