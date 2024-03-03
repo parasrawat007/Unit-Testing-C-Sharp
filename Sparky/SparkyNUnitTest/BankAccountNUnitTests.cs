@@ -20,14 +20,14 @@ namespace SparkyNUnitTest
           
         } 
 
-        [Test]
-        public void BankDepositlogFakker_Add100_ReturnsTrue() 
-        {
-            BankAccount bankAccount = new(new LogFakker());
-            var result = bankAccount.Deposit(100);
-            Assert.IsTrue(result);
-            Assert.That(bankAccount.GetBalance(), Is.EqualTo(100));
-        }
+        //[Test]
+        //public void BankDepositlogFakker_Add100_ReturnsTrue() 
+        //{
+        //    BankAccount bankAccount = new(new LogFakker());
+        //    var result = bankAccount.Deposit(100);
+        //    Assert.IsTrue(result);
+        //    Assert.That(bankAccount.GetBalance(), Is.EqualTo(100));
+        //}
 
         [Test]
         public void BankDeposit_Add100_ReturnsTrue()
@@ -39,6 +39,36 @@ namespace SparkyNUnitTest
 
             Assert.IsTrue(result);
             Assert.That(bankAccount.GetBalance(), Is.EqualTo(100));
+        }
+        
+        [Test]
+        [TestCase(200,100)]
+        [TestCase(200,150)]
+        public void BankWitdrawn_Withdraw100With200Balance_ReturnsTrue(int balance, int withdraw)
+        { 
+            var logMock = new Mock<ILogBook>();
+            logMock.Setup(x => x.LogToDb(It.IsAny<String>())).Returns(true);
+            logMock.Setup(x=>x.LogBalanceAfterWithdrawl(It.Is<int>(i=>i>0))).Returns(true);
+
+            BankAccount account = new(logMock.Object);
+            account.Deposit(balance);  
+            var result= account.Withdraw(withdraw);
+            Assert.IsTrue(result);  
+
+        }
+
+        [Test]
+        public void BankWitdrawn_Withdraw300With200Balance_ReturnsTrue()
+        {
+            var logMock = new Mock<ILogBook>();
+            logMock.Setup(x => x.LogToDb(It.IsAny<String>())).Returns(true);
+            logMock.Setup(x => x.LogBalanceAfterWithdrawl(It.Is<int>(i => i < 0))).Returns(false);
+
+            BankAccount account = new(logMock.Object);
+            account.Deposit(200);
+            var result = account.Withdraw(300);
+            Assert.IsFalse(result);
+
         }
     }
 }
