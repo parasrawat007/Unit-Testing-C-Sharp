@@ -11,20 +11,21 @@ namespace SparkyNUnitTest
     [TestFixture]
     public class BankAccountNUnitTests
     {
-        private BankAccount bankAccount;
+        private BankAccount account;
         
         [SetUp]
         public void Setup()
         {
-            bankAccount = new(new LogBook());
-        }
+            account = new(new LogFakker());
+        } 
 
         [Test]
         public void BankDeposit_Add100_ReturnsTrue() 
         {
-            var result = bankAccount.Deposit(100);
+           
+            var result = account.Deposit(100);
             Assert.IsTrue(result);
-            Assert.That(bankAccount.GetBalance(), Is.EqualTo(100));
+            Assert.That(account.GetBalance(), Is.EqualTo(100));
         }
     }
 }
