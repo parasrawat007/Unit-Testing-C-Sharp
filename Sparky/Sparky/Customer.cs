@@ -6,21 +6,39 @@ using System.Threading.Tasks;
 
 namespace Sparky
 {
-    public class Customer
+    public interface ICustomer
+    {
+        string GreetMessage { get; set; }
+        int Discount { get; set; }
+        int OrderTotal { get; set; }
+        bool IsPlatinum { get; set; }
+
+        string GreetAndCombineNames(string firstName, string lastName);
+        CustomerType GetCustomerDetails();
+    }
+
+    public class Customer:ICustomer
     {
         public string GreetMessage { get; set; }
-        public int Discount = 15;
+        public int Discount { get; set; }
         public int OrderTotal { get; set; }
+        public bool IsPlatinum { get; set; }
+
+        public Customer()
+        {
+            IsPlatinum = false;
+        }
+
         public string GreetAndCombineNames(string firstName, string lastName)
         {
             if (String.IsNullOrEmpty(firstName))
                 throw new ArgumentException("First Name is Empty.");
 
             GreetMessage = $"Hello, {firstName} {lastName}";
-            Discount = 20 ;
+            Discount = 20;
             return GreetMessage;
         }
-        public CustomerType GetCustomerDetails() 
+        public CustomerType GetCustomerDetails()
         {
             if (OrderTotal < 100)
                 return new BasicCustomer();
