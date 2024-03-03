@@ -28,10 +28,11 @@ namespace Sparky
         {
             if (amount <= Balance)
             {
+                _logBook.LogToDb("Withdrawl Amount: " + amount);
                 Balance -= amount;
-                return true;
+                return _logBook.LogBalanceAfterWithdrawl(Balance);
             }
-            return false;
+            return  _logBook.LogBalanceAfterWithdrawl(Balance-amount);
             
         }
 
