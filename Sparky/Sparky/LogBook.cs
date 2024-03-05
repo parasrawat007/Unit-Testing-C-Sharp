@@ -13,6 +13,7 @@ namespace Sparky
         bool LogBalanceAfterWithdrawl(int balanceAfterWithdrawl);
         string MessageWithReturnStr(string message);
         bool LogWithOutputResult(string str,out string outputStr);
+        bool LogWithRefObj(ref Customer customer);
     }
     
     public class LogBook : ILogBook
@@ -39,6 +40,11 @@ namespace Sparky
         {
             outputStr = "Hello" + str;
             return true;    
+        }
+
+        public bool LogWithRefObj(ref Customer customer)
+        {
+           return true;
         }
 
         public void Message(string message)
