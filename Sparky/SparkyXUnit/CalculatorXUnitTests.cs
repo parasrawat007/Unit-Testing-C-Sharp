@@ -79,12 +79,12 @@ namespace SparkyNUnitTest
             var result = calc.GetOddRange(5,10);
 
             //Assert
-            Assert.Equal(result,expectedOddRange);
             Assert.Equal(expectedOddRange, result);
             Assert.Contains(7, result);
             Assert.NotEmpty(result);
+            Assert.Equal(expectedOddRange.Count,result.Count);
             Assert.DoesNotContain(6, result);
-            Assert.Equal(result, result.OrderBy(x => x));
+            Assert.Equal(result.OrderBy(x => x), result);
             Assert.Distinct(result);
            // Assert.That(result,Is.Unique);
         }
