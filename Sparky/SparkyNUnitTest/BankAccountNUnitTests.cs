@@ -116,6 +116,23 @@ namespace SparkyNUnitTest
             //logMock.Object.LogSeverity = 100; will also give error for warning
             Assert.That(logMock.Object.LogSeverity, Is.EqualTo(10));
             Assert.That(logMock.Object.LogType, Is.EqualTo("Warning"));
+
+            //callbacks
+            string logTemp = "Hello, ";
+            logMock.Setup(u => u.LogToDb(It.IsAny<string>()))
+                .Returns(true)
+                .Callback((string str) => logTemp += str);
+            logMock.Object.LogToDb("Ben");
+            Assert.That(logTemp,Is.EqualTo("Hello, Ben"));
+
+            //callbacks
+            int counter = 5;
+            logMock.Setup(u => u.LogToDb(It.IsAny<string>()))
+                .Callback((string str) => counter++)
+                .Returns(true)
+                .Callback((string str) => counter++);
+            logMock.Object.LogToDb("Ben");
+            Assert.That(counter, Is.EqualTo(7));
         }
     }
 }
