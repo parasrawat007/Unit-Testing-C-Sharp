@@ -75,7 +75,7 @@ namespace SparkyNUnitTest
         {
             var logMock = new Mock<ILogBook>();
             string desiredOutput = "Hello";
-            logMock.Setup(u => u.MessageWithReturnStr(It.IsAny<String>())).Returns((string str) => str.ToLower());
+            logMock.Setup(u => u.MessageWithReturnStr("Hi")).Returns((string str) => str.ToLower());
             Assert.That(logMock.Object.MessageWithReturnStr("HELLO"),Is.EqualTo(desiredOutput.ToLower()));
         }
         [Test]
