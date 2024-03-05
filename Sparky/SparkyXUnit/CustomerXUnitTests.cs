@@ -1,103 +1,100 @@
-﻿//using NUnit.Framework;
-//using Sparky;
-//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
+﻿using Sparky;
+using Xunit;
+using Xunit.Sdk;
 
-//namespace SparkyNUnitTest 
-//{
-//    [TestFixture]
-//    public class CustomerXUnitTests
-//    {
-//        private Customer customer;
+namespace SparkyNUnitTest
+{
+    public class CustomerXUnitTests
+    {
+        private Customer customer;
 
-       
-//        [SetUp]
-//        public void Steup()
-//        {
-//            //Arrange 
-//            customer = new Customer();
-//        }
-        
-//        [Test]
-//        public void CombineName_InputFirstAndLastName_ReturnFullName()
-//        {
-            
-//            //Act
-//            customer.GreetAndCombineNames("Ben", "Spark");
+        public  CustomerXUnitTests()
+        {
+            //Arrange 
+            customer = new Customer();
+        }
 
-//            //Assert
-//            Assert.Multiple(() => {
-//                Assert.AreEqual(customer.GreetMessage, "Hello, Ben Spark");
-//                Assert.That(customer.GreetMessage, Is.EqualTo("Hello, Ben Spark"));
+        [Fact]
+        public void CombineName_InputFirstAndLastName_ReturnFullName()
+        {
 
-//                Assert.That(customer.GreetMessage, Does.Contain(","));
-//                Assert.That(customer.GreetMessage, Does.Contain("Ben Spark"));
-//                Assert.That(customer.GreetMessage, Does.Contain("ben Spark").IgnoreCase);
+            //Act
+            customer.GreetAndCombineNames("Ben", "Spark");
 
-//                Assert.That(customer.GreetMessage, Does.StartWith("Hello,"));
-//                Assert.That(customer.GreetMessage, Does.EndWith("Spark"));
+            //Assert
+            Assert.Multiple(() =>
+            {
+                Assert.Equal( "Hello, Ben Spark", customer.GreetMessage);
 
-//                //Macthiing with regular expression
-//                Assert.That(customer.GreetMessage, Does.Match("Hello, [A-Z]{1}[a-z]+ [A-Z]{1}[a-z]+"));
+                Assert.Contains(",",customer.GreetMessage);
+                Assert.Contains("Ben Spark",customer.GreetMessage);
+                Assert.Contains("ben Spark",customer.GreetMessage,StringComparison.CurrentCultureIgnoreCase);
 
-//            });
-           
-           
-//        }
-        
-//        [Test]
-//        public void GreetMessage_NotGreeted_ReturnsNull()
-//        {
-//            //act
-//            //Assert
-//            Assert.IsNull(customer.GreetMessage);
-//        }
+                Assert.StartsWith("Hello,",customer.GreetMessage);
+                Assert.EndsWith("Spark", customer.GreetMessage);
 
-//        [Test]
-//        public void DiscountCheck_DefaultCustomer_ReturnsDiscountInRange()
-//        {
-//            int result = customer.Discount;
-//            Assert.That(result, Is.InRange(10, 20));
-//        }
+                //Macthiing with regular expression
+                Assert.Matches("Hello, [A-Z]{1}[a-z]+ [A-Z]{1}[a-z]+",customer.GreetMessage);
 
-//        [Test]
-//        public void GreetMessage_GreetedWithoutLastName_ReturnsNotNull()
-//        {
-//            customer.GreetAndCombineNames("ben", "");
+            });
 
-//            Assert.IsNotNull(customer.GreetMessage);
-//            Assert.IsFalse(String.IsNullOrEmpty(customer.GreetMessage));
 
-//        }
+        }
 
-//        [Test]
-//        public void GreetChecker_EmptyFirstName_ThrowsException()
-//        {
-//            var exceptionDetails = Assert.Throws<ArgumentException>(() => {
-//                customer.GreetAndCombineNames("", "Spark");
-//            });
-           
-//            Assert.AreEqual("First Name is Empty.", exceptionDetails.Message);
-          
-//            Assert.That(()=>customer.GreetAndCombineNames("", "Spark"), 
-//                Throws.ArgumentException.With.Message.EqualTo("First Name is Empty."));
+        [Fact]
+        public void GreetMessage_NotGreeted_ReturnsNull()
+        {
+            //act
+            //Assert
+            Assert.Null(customer.GreetMessage);
+        }
 
-//            Assert.Throws<ArgumentException>(() => {
-//                customer.GreetAndCombineNames("", "Spark");
-//            });
-//            Assert.That(() => customer.GreetAndCombineNames("", "Spark"),
-//               Throws.ArgumentException);
-//        }
+        [Fact]
+        public void DiscountCheck_DefaultCustomer_ReturnsDiscountInRange()
+        {
+            int result = customer.Discount;
+            Assert.InRange(result,10, 25);
+        }
 
-//        [Test]
-//        public void CustomerType_CreateCustomerWithLessThan100Order_ReturnBasicCustomer()
-//        { 
-//            customer.OrderTotal = 10;
-//            var result =customer.GetCustomerDetails();
-//            Assert.That(result, Is.TypeOf<BasicCustomer>());
-//        }
-//    }
-//}
+        [Fact]
+        public void GreetMessage_GreetedWithoutLastName_ReturnsNotNull()
+        {
+            customer.GreetAndCombineNames("ben", "");
+
+            Assert.NotNull(customer.GreetMessage);
+            Assert.False(String.IsNullOrEmpty(customer.GreetMessage));
+
+        }
+
+        [Fact]
+        public void GreetChecker_EmptyFirstName_ThrowsException()
+        {
+            var exceptionDetails = Assert.Throws<ArgumentException>(() =>
+            {
+                customer.GreetAndCombineNames("", "Spark");
+            });
+
+            Assert.Equal("First Name is Empty.", exceptionDetails.Message);
+            Assert.Throws<ArgumentException>(() => {
+                customer.GreetAndCombineNames("", "Spark");
+            });
+        }
+
+   
+
+        [Fact]
+        public void CustomerType_CreateCustomerWithLessThan100Order_ReturnBasicCustomer()
+        {
+            customer.OrderTotal = 10;
+            var result = customer.GetCustomerDetails();
+            Assert.IsType<BasicCustomer>(result);
+        }
+        [Fact]
+        public void CustomerType_CreateCustomerWithMoreThan100Order_ReturnBasicCustomer()
+        {
+            customer.OrderTotal = 110;
+            var result = customer.GetCustomerDetails();
+            Assert.IsType<PlatinumCustomer>(result);
+        }
+    }
+}

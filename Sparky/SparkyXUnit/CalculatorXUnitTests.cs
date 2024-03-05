@@ -9,13 +9,9 @@ namespace SparkyNUnitTest
 
         public CalculatorXUnitTests()
         {
-            calc = new Calculator();
-        }
-        public void SetUp() 
-        {
             //Arrange --> Initialization
-           
-        }
+            calc = new Calculator();
+        }      
 
         [Fact]
         public void AddNumbers_InputTwoInt_GetCorrectAddition()

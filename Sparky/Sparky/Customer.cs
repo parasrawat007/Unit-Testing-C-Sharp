@@ -27,6 +27,7 @@ namespace Sparky
         public Customer()
         {
             IsPlatinum = false;
+            Discount = 10;
         }
 
         public string GreetAndCombineNames(string firstName, string lastName)

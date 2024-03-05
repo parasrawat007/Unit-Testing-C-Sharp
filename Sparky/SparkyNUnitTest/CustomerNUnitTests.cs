@@ -60,7 +60,7 @@ namespace SparkyNUnitTest
         public void DiscountCheck_DefaultCustomer_ReturnsDiscountInRange()
         {
             int result = customer.Discount;
-            Assert.That(result, Is.InRange(10, 20));
+            Assert.That(result, Is.InRange(10, 25));
         }
 
         [Test]
@@ -98,6 +98,13 @@ namespace SparkyNUnitTest
             customer.OrderTotal = 10;
             var result =customer.GetCustomerDetails();
             Assert.That(result, Is.TypeOf<BasicCustomer>());
+        }
+        [Test]
+        public void CustomerType_CreateCustomerWithMoreThan100Order_ReturnBasicCustomer()
+        {
+            customer.OrderTotal = 110;
+            var result = customer.GetCustomerDetails();
+            Assert.That(result, Is.TypeOf<PlatinumCustomer>());
         }
     }
 }

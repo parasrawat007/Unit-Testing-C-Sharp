@@ -75,7 +75,8 @@ namespace SparkyNUnitTest
         {
             var logMock = new Mock<ILogBook>();
             string desiredOutput = "Hello";
-            logMock.Setup(u => u.MessageWithReturnStr("Hi")).Returns((string str) => str.ToLower());
+            //logMock.Setup(u => u.MessageWithReturnStr("Hi")).Returns((string str) => str.ToLower()); used for specifying special string value for methd like "hi" here
+            logMock.Setup(u => u.MessageWithReturnStr(It.IsAny<string>())).Returns((string str) => str.ToLower());
             Assert.That(logMock.Object.MessageWithReturnStr("HELLO"),Is.EqualTo(desiredOutput.ToLower()));
         }
         [Test]
