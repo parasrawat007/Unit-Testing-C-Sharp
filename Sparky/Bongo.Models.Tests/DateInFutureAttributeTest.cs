@@ -17,10 +17,19 @@ namespace Bongo.Models
         }
 
         [Fact]
-        public void DateValidator_InputExpectedDateRange_DateValidity()
+        public void DateValidator_AnyDate_ReturnErrorMessage() 
+        { 
+            Assert.Equal("Date must be in the future",dateInFutureAttribute.ErrorMessage);
+        }
+
+        [Theory]
+        [InlineData(100,true)]
+        [InlineData(-100,false)]
+        [InlineData(0,false)]
+        public void DateValidator_InputExpectedDateRange_DateValidity(int addTime,bool expectedResult)
         {
-            var result = dateInFutureAttribute.IsValid(DateTime.Now.AddSeconds(100));
-            Assert.True(result); 
+            var result = dateInFutureAttribute.IsValid(DateTime.Now.AddSeconds(addTime));
+            Assert.Equal(expectedResult, result);
         }
     }
 }
