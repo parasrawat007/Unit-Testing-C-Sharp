@@ -3,7 +3,6 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
     <RootNamespace>Bongo.DataAcces</RootNamespace>
   </PropertyGroup>
 
@@ -16,6 +15,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Bongo.DataAccess\Bongo.DataAccess.csproj" />
+    <ProjectReference Include="..\Bongo.Models\Bongo.Models.csproj" />
   </ItemGroup>
 
 </Project>
