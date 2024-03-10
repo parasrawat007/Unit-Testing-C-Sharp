@@ -13,13 +13,17 @@ using Xunit;
 
 namespace Bongo.DataAcces
 {
+
     public class StudyRoomBookingRepositoryTests
     {
         private StudyRoomBooking roomBooking1;
         private StudyRoomBooking roomBooking2;
+        private readonly DbContextOptions<ApplicationDbContext> options;
+
         public StudyRoomBookingRepositoryTests() 
-        { 
-            roomBooking1= new StudyRoomBooking()
+        {
+            options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(databaseName: "TempDb").Options;
+            roomBooking1 = new StudyRoomBooking()
             { 
                 BookingId = 1,
                 Date = DateTime.Now.AddDays(1),
@@ -43,7 +47,6 @@ namespace Bongo.DataAcces
         public void SaveBooking_Booing1_CheckTheValuesFormDb()
         {
             //arrange
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(databaseName:"TempDb").Options;
 
             //act
             using (var context= new ApplicationDbContext(options))
@@ -71,9 +74,10 @@ namespace Bongo.DataAcces
         {
             //arrange
             var expectedBooking = new List<StudyRoomBooking>() { roomBooking1, roomBooking2 };
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(databaseName: "TempDb").Options;
+           
             using (var context = new ApplicationDbContext(options))
             {
+                context.Database.EnsureDeleted();
                 var repository = new StudyRoomBookingRepository(context);
                 repository.Book(roomBooking1);
                 repository.Book(roomBooking2);
