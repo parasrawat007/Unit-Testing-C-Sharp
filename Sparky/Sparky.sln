@@ -27,7 +27,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bongo.Models.Tests", "Bongo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bongo.DataAcces.Tests", "Bongo.DataAcces.Tests\Bongo.DataAcces.Tests.csproj", "{1D75F663-F0D9-4D8C-94BA-AB48CCE83175}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bongo.Core.Tests", "Bongo.Core.Tests\Bongo.Core.Tests.csproj", "{291FE5A0-025D-4E4D-9C3F-5EEED32CDA22}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bongo.Core.Tests", "Bongo.Core.Tests\Bongo.Core.Tests.csproj", "{291FE5A0-025D-4E4D-9C3F-5EEED32CDA22}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bongo.Web.Tests", "Bongo.Web.Tests\Bongo.Web.Tests.csproj", "{CA3C3184-DA72-4A1B-9902-A744C9F6CDAB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -79,6 +81,10 @@ Global
 		{291FE5A0-025D-4E4D-9C3F-5EEED32CDA22}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{291FE5A0-025D-4E4D-9C3F-5EEED32CDA22}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{291FE5A0-025D-4E4D-9C3F-5EEED32CDA22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA3C3184-DA72-4A1B-9902-A744C9F6CDAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA3C3184-DA72-4A1B-9902-A744C9F6CDAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA3C3184-DA72-4A1B-9902-A744C9F6CDAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA3C3184-DA72-4A1B-9902-A744C9F6CDAB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -95,6 +101,7 @@ Global
 		{19DEA088-D06D-47AC-A04A-1C00306194EB} = {923D5F90-D044-4246-A9B4-60801162F8F8}
 		{1D75F663-F0D9-4D8C-94BA-AB48CCE83175} = {923D5F90-D044-4246-A9B4-60801162F8F8}
 		{291FE5A0-025D-4E4D-9C3F-5EEED32CDA22} = {923D5F90-D044-4246-A9B4-60801162F8F8}
+		{CA3C3184-DA72-4A1B-9902-A744C9F6CDAB} = {923D5F90-D044-4246-A9B4-60801162F8F8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3807268D-42E9-4091-9B03-588303B27599}
