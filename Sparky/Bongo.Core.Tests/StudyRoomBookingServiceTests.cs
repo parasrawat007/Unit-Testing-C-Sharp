@@ -20,7 +20,7 @@ namespace Bongo.Core.Tests
                 BookingId=1,
                 Date= DateTime.Now.AddDays(1),
                 Email="ben@gmail.com",
-                
+                StudyRoomId=1          
             };
             _availableStudyRoom= new List<StudyRoom>()
             { 
@@ -54,6 +54,26 @@ namespace Bongo.Core.Tests
             Assert.Equal("Value cannot be null. (Parameter 'request')", exception.Message);
             Assert.Equal("request", exception.ParamName);
         }
-       
+
+
+        [Fact]
+        public void StudyRoomBooking_SaveBookingWithAvailableRoomReturnsResultWithValues()
+        {
+            StudyRoomBooking savedStudyRoomBooking=null;
+            _studyRoomBookingRepositoryMock.Setup(x => x.Book(It.IsAny<StudyRoomBooking>()))
+                .Callback<StudyRoomBooking>(booking =>
+                {
+                    savedStudyRoomBooking = booking;
+                });
+            _studyRoomBookingService.BookStudyRoom(_request);
+
+            _studyRoomBookingRepositoryMock.Verify(x=>x.Book(It.IsAny<StudyRoomBooking>()), Times.Once);
+            Assert.NotNull(savedStudyRoomBooking);
+            Assert.Equal(_request.FirstName, savedStudyRoomBooking.FirstName);
+            Assert.Equal(_request.LastName, savedStudyRoomBooking.LastName);
+            Assert.Equal(_request.Date, savedStudyRoomBooking.Date);
+            Assert.Equal(_availableStudyRoom.First().Id, savedStudyRoomBooking.StudyRoomId);
+            Assert.Equal(_request.Email, savedStudyRoomBooking.Email);
+        }
     }
 }
